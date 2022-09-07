@@ -1,26 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1704.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F73A3C88-E965-4397-BCFA-89083DDC5A2D}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		docker-compose-debug.yml = docker-compose-debug.yml
 		docker-compose-release.yml = docker-compose-release.yml
 		LICENSE = LICENSE
 		README.md = README.md
-		.dockerignore = .dockerignore
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DB9D6162-7A2F-480A-A1C8-A3DD167B5017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180", "src\AM180\AM180.csproj", "{1D18E50D-866E-4136-955C-F82F13894E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM180", "src\AM180\AM180.csproj", "{1D18E50D-866E-4136-955C-F82F13894E38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180.Maui", "src\AM180.Maui\AM180.Maui.csproj", "{494E6D24-BC09-4B67-BFFD-C2702479A9F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM180.Maui", "src\AM180.Maui\AM180.Maui.csproj", "{494E6D24-BC09-4B67-BFFD-C2702479A9F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180.Shared", "src\AM180.Shared\AM180.Shared.csproj", "{3A46B0B3-8E97-4512-A97D-826053A8AAF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AM180.Shared", "src\AM180.Shared\AM180.Shared.csproj", "{3A46B0B3-8E97-4512-A97D-826053A8AAF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{1B901D79-1325-436D-9ECA-5C7CD6A2EF86}"
 EndProject
@@ -46,6 +46,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openssl", "openssl", "{A1D5
 		etc\openssl\localhost.key = etc\openssl\localhost.key
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "secrets", "secrets", "{0578C3E3-4CDC-40A4-B6FA-8AE7616D1F0D}"
+	ProjectSection(SolutionItems) = preProject
+		secrets\azure-appconfig = secrets\azure-appconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9BE705C9-C7C7-421E-960F-E246F45AEF14}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\add-migration-all.sh = scripts\add-migration-all.sh
+		scripts\add-migration-default.sh = scripts\add-migration-default.sh
+		scripts\define-secrets.sh = scripts\define-secrets.sh
+		scripts\docker-install.sh = scripts\docker-install.sh
+		scripts\healthcheck.sh = scripts\healthcheck.sh
+		scripts\nginx-entrypoint-debug.sh = scripts\nginx-entrypoint-debug.sh
+		scripts\nginx-entrypoint-release.sh = scripts\nginx-entrypoint-release.sh
+		scripts\openssl-generate.sh = scripts\openssl-generate.sh
+		scripts\purify-migrations-all.sh = scripts\purify-migrations-all.sh
+		scripts\purify-migrations-default.sh = scripts\purify-migrations-default.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,9 +87,6 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C4D949C2-C2DF-47C1-ABB7-030F8D1C2206}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DB9D6162-7A2F-480A-A1C8-A3DD167B5017} = {F73A3C88-E965-4397-BCFA-89083DDC5A2D}
 		{1D18E50D-866E-4136-955C-F82F13894E38} = {DB9D6162-7A2F-480A-A1C8-A3DD167B5017}
@@ -80,5 +96,10 @@ Global
 		{2A25943B-4A3D-494D-B20D-29156FBB31D0} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
 		{9BFAF48F-8E07-425F-80C3-1E79C6F0660B} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
 		{A1D5A237-6BFD-4BFE-A8A5-9C8EEF30F526} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
+		{0578C3E3-4CDC-40A4-B6FA-8AE7616D1F0D} = {F73A3C88-E965-4397-BCFA-89083DDC5A2D}
+		{9BE705C9-C7C7-421E-960F-E246F45AEF14} = {F73A3C88-E965-4397-BCFA-89083DDC5A2D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4D949C2-C2DF-47C1-ABB7-030F8D1C2206}
 	EndGlobalSection
 EndGlobal

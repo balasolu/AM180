@@ -2,10 +2,10 @@
 
 if [ "$(dirname $0)" = "." ]
 then
-    cd ../src/TheRightCareer
+    cd ../src/AM180
 else
     parent=$(dirname $(dirname "$0"))
-    cd "$parent"/src/TheRightCareer
+    cd "$parent"/src/AM180
 fi
 dotnet ef database drop --force --context DefaultDbContext
 for file in ./migrations/*

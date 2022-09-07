@@ -2,10 +2,10 @@
 
 if [ "$(dirname $0)" = "." ]
 then
-    cd ../src/TheRightCareer
+    cd ../src/AM180
 else
     parent=$(dirname $(dirname "$0"))
-    cd "$parent"/src/TheRightCareer
+    cd "$parent"/src/AM180
 fi
 
 date=$(date '+%H-%M-%S_%d-%m-%Y')

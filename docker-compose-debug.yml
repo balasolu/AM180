@@ -6,6 +6,10 @@ services:
         build:
             context: .
             dockerfile: etc/docker/web-debug.Dockerfile
+        secrets:
+            - azure-appconfig
+        environment:
+            - APPLICATION__AZUREOPTIONS__APPCONFIG=/run/secrets/azure-appconfig
         expose:
             - 5000
         restart: always
@@ -20,3 +24,8 @@ services:
             - 80:80
             - 443:443
         restart: always
+
+secrets:
+
+    azure-appconfig:
+        file: secrets/azure-appconfig

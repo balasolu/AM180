@@ -9,8 +9,8 @@ then
         --nginx \
         --register-unsafely-without-email \
         --agree-tos \
-        -d therightcareer.org \
-        -d www.therightcareer.org
+        -d am180.dev \
+        -d www.am180.dev
     echo "SSL Certificate Generated!"
     echo "Copying SSL Config..."
     cp /nginx-release.conf /etc/nginx/nginx.conf
