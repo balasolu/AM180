@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+
+    web:
+        build:
+            context: .
+            dockerfile: etc/docker/web-debug.Dockerfile
+        expose:
+            - 5000
+        restart: always
+
+    nginx:
+        depends_on:
+            - web
+        build:
+            context: .
+            dockerfile: etc/docker/nginx-debug.Dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        restart: always

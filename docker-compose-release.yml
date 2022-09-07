@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+    
+    web:
+        build:
+            context: .
+            dockerfile: etc/docker/web-release.Dockerfile
+        expose:
+            - 5000
+        restart: always
+
+    nginx:
+        depends_on:
+            - web
+        build:
+            context: .
+            dockerfile: etc/docker/nginx-release.Dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - am180-ssl:/etc/letsencrypt
+        restart: always 
+        
+volumes:
+    am180-ssl:
+        external: true

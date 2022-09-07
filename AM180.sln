@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F73A3C88-E965-4397-BCFA-89083DDC5A2D}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose-debug.yml = docker-compose-debug.yml
+		docker-compose-release.yml = docker-compose-release.yml
+		LICENSE = LICENSE
+		README.md = README.md
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DB9D6162-7A2F-480A-A1C8-A3DD167B5017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180", "src\AM180\AM180.csproj", "{1D18E50D-866E-4136-955C-F82F13894E38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180.Maui", "src\AM180.Maui\AM180.Maui.csproj", "{494E6D24-BC09-4B67-BFFD-C2702479A9F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AM180.Shared", "src\AM180.Shared\AM180.Shared.csproj", "{3A46B0B3-8E97-4512-A97D-826053A8AAF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{1B901D79-1325-436D-9ECA-5C7CD6A2EF86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{2A25943B-4A3D-494D-B20D-29156FBB31D0}"
+	ProjectSection(SolutionItems) = preProject
+		etc\docker\nginx-debug.Dockerfile = etc\docker\nginx-debug.Dockerfile
+		etc\docker\nginx-release.Dockerfile = etc\docker\nginx-release.Dockerfile
+		etc\docker\web-debug.Dockerfile = etc\docker\web-debug.Dockerfile
+		etc\docker\web-release.Dockerfile = etc\docker\web-release.Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{9BFAF48F-8E07-425F-80C3-1E79C6F0660B}"
+	ProjectSection(SolutionItems) = preProject
+		etc\nginx\nginx-debug.conf = etc\nginx\nginx-debug.conf
+		etc\nginx\nginx-release.conf = etc\nginx\nginx-release.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openssl", "openssl", "{A1D5A237-6BFD-4BFE-A8A5-9C8EEF30F526}"
+	ProjectSection(SolutionItems) = preProject
+		etc\openssl\localhost.cer = etc\openssl\localhost.cer
+		etc\openssl\localhost.conf = etc\openssl\localhost.conf
+		etc\openssl\localhost.crt = etc\openssl\localhost.crt
+		etc\openssl\localhost.key = etc\openssl\localhost.key
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D18E50D-866E-4136-955C-F82F13894E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D18E50D-866E-4136-955C-F82F13894E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D18E50D-866E-4136-955C-F82F13894E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D18E50D-866E-4136-955C-F82F13894E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494E6D24-BC09-4B67-BFFD-C2702479A9F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494E6D24-BC09-4B67-BFFD-C2702479A9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494E6D24-BC09-4B67-BFFD-C2702479A9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494E6D24-BC09-4B67-BFFD-C2702479A9F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A46B0B3-8E97-4512-A97D-826053A8AAF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A46B0B3-8E97-4512-A97D-826053A8AAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A46B0B3-8E97-4512-A97D-826053A8AAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A46B0B3-8E97-4512-A97D-826053A8AAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4D949C2-C2DF-47C1-ABB7-030F8D1C2206}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB9D6162-7A2F-480A-A1C8-A3DD167B5017} = {F73A3C88-E965-4397-BCFA-89083DDC5A2D}
+		{1D18E50D-866E-4136-955C-F82F13894E38} = {DB9D6162-7A2F-480A-A1C8-A3DD167B5017}
+		{494E6D24-BC09-4B67-BFFD-C2702479A9F2} = {DB9D6162-7A2F-480A-A1C8-A3DD167B5017}
+		{3A46B0B3-8E97-4512-A97D-826053A8AAF9} = {DB9D6162-7A2F-480A-A1C8-A3DD167B5017}
+		{1B901D79-1325-436D-9ECA-5C7CD6A2EF86} = {F73A3C88-E965-4397-BCFA-89083DDC5A2D}
+		{2A25943B-4A3D-494D-B20D-29156FBB31D0} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
+		{9BFAF48F-8E07-425F-80C3-1E79C6F0660B} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
+		{A1D5A237-6BFD-4BFE-A8A5-9C8EEF30F526} = {1B901D79-1325-436D-9ECA-5C7CD6A2EF86}
+	EndGlobalSection
+EndGlobal
