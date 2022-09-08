@@ -1,0 +1,26 @@
+﻿<nav class="navbar navbar-light w-100" style="background-color: darkgray;">
+    <a class="navbar-brand mx-3" href="/" style="color: white;">
+        <strong>AM180</strong>
+    </a>
+    <div class="mx-3">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" aria-label="toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel" class="px-3">menu</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="navbar-nav m-1 p-1">
+                <NavItem Title="Home" Href="/" Icon="home" Active="true" />
+                <NavItem Title="About" Href="/about" Icon="caret-right" />
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code {
+
+}
