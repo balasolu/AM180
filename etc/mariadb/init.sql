@@ -1,4 +1,0 @@
-DROP USER IF EXISTS 'ncflda';
-CREATE USER 'ncflda'@'%' IDENTIFIED BY 'ncflda';
-GRANT ALL PRIVILEGES ON *.* TO 'ncflda'@'%' IDENTIFIED BY 'ncflda';
-FLUSH PRIVILEGES;
