@@ -66,7 +66,8 @@ builder.WebHost
         x.AddRazorPages();
         x.AddServerSideBlazor();
         x.AddSingleton<WeatherForecastService>();
-    });
+    })
+    .UseStaticWebAssets();
 
 
 // Add services to the container.

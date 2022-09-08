@@ -11,6 +11,8 @@ services:
         restart: always
 
     postgres:
+        depends_on:
+            - redis
         image: postgres
         secrets:
             - postgres-user
@@ -27,6 +29,7 @@ services:
 
     web:
         depends_on:
+            - redis
             - postgres
         build:
             context: .
