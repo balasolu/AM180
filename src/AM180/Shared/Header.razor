@@ -16,6 +16,15 @@
             <div class="navbar-nav m-1 p-1">
                 <NavItem Title="Home" Href="/" Icon="home" Active="true" />
                 <NavItem Title="About" Href="/about" Icon="caret-right" />
+                <AuthorizeView>
+                    <Authorized>
+                        <NavItem Title="Account" Href="/account/manage" Icon="aperture" />
+                    </Authorized>
+                    <NotAuthorized>
+                        <NavItem Title="Register" Href="/register" Icon="flag" />
+                        <NavItem Title="Login" Href="/login" Icon="account-login" />
+                    </NotAuthorized>
+                </AuthorizeView>
             </div>
         </div>
     </div>
