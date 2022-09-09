@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Reflection;
-using AM180.Contexts;
+﻿using AM180.Contexts;
 using AM180.Models.AppConfigurationOptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using System.Collections;
+using System.Reflection;
 
 namespace AM180.Factories;
 
-	public class DesignTimeDefaultDbContextFactory : IDesignTimeDbContextFactory<DefaultDbContext>
-	{
-		public DesignTimeDefaultDbContextFactory()
-		{
-		}
+public class DesignTimeDefaultDbContextFactory : IDesignTimeDbContextFactory<DefaultDbContext>
+{
+    public DesignTimeDefaultDbContextFactory()
+    {
+    }
 
     public DefaultDbContext CreateDbContext(string[] args)
     {

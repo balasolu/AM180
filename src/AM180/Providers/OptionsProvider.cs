@@ -20,7 +20,7 @@ sealed class OptionsProvider
     public Dictionary<string, Options> OptionsStore { get; set; } = new();
 
     public T GetOptions<T>(string providerName)
-        where T : Options => 
+        where T : Options =>
             (T)OptionsStore[providerName];
 
     public static IEnumerable<Type> FindOptionsTypes()

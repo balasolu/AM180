@@ -1,5 +1,4 @@
-﻿using System;
-using AM180.Models.Enums;
+﻿using AM180.Models.Enums;
 
 namespace AM180.Models.Interfaces;
 

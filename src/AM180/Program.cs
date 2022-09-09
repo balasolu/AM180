@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Reflection;
-using AM180.Contexts;
+﻿using AM180.Contexts;
 using AM180.Data;
 using AM180.Extensions;
 using AM180.Factories;
@@ -12,6 +9,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Serilog.Events;
+using System.Collections;
+using System.Diagnostics;
+using System.Reflection;
 
 var executingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 var loggerConfig = new LoggerConfiguration()
@@ -82,6 +82,11 @@ builder.WebHost
         .AddEntityFrameworkStores<DefaultDbContext>()
         .AddDefaultTokenProviders();
         // redis connection string is 'redis' for docker compose
+        x.AddStackExchangeRedisCache(x =>
+        {
+            x.Configuration = "redis";
+            x.InstanceName = "am180_";
+        });
         x.AddSignalR().AddStackExchangeRedis("redis");
         x.AddControllers();
         x.AddRazorPages();

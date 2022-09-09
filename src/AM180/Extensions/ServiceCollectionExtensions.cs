@@ -1,7 +1,7 @@
-﻿using AM180.Factories;
+﻿using AM180.Contexts;
+using AM180.Factories;
 using AM180.Models.AppConfigurationOptions;
 using AM180.Providers;
-using AM180.Contexts;
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

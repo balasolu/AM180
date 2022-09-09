@@ -1,4 +1,5 @@
 ﻿@page "/fetchdata"
+@inject IDistributedCache _cache;
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -9,12 +10,19 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
+<button class="btn btn-primary" @onclick="async () => await OnForecastClickedAsync()">Load Forecast</button>
+
+@if (forecasts == null && loadedFrom == null)
+{
+    <p><em>Click the button to load a forecast</em></p>
+}
+else if (forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <div class="h3 @cacheDataCss">@loadedFrom</div>
     <table class="table">
         <thead>
             <tr>
@@ -40,10 +48,27 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
+    string? loadedFrom = null;
+    string? cacheDataCss = null;
 
-    protected override async Task OnInitializedAsync()
+    public async Task OnForecastClickedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = null;
+        loadedFrom = null;
+        string recordKey = string.Join("weatherforecast_", DateTime.UtcNow.ToString("yyyyMMdd_hhmm"));
+        forecasts = await _cache.GetRecordAsync<WeatherForecast[]>(recordKey);
+        if (forecasts == null)
+        {
+            forecasts = await ForecastService.GetForecastAsync(DateTime.UtcNow);
+            loadedFrom = $"loaded from api @ {DateTime.UtcNow}";
+            cacheDataCss = string.Empty;
+            await _cache.SetRecordAsync(recordKey, forecasts);
+        }
+        else
+        {
+            loadedFrom = $"loaded from cache @ {DateTime.UtcNow}";
+            cacheDataCss = "text-danger";
+        }
     }
 }
 

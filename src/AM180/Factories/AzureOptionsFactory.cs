@@ -9,7 +9,7 @@ public class AzureOptionsFactory : IOptionsFactory
     public const string NAME = "azure";
     const string AZURE_OPTIONS = "APPLICATION:AZUREOPTIONS";
 
-    public string Name => 
+    public string Name =>
         NAME;
 
     public Options BuildOptions(IConfiguration configuration)
