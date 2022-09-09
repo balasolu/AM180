@@ -45,6 +45,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "secrets", "secrets", "{0578C3E3-4CDC-40A4-B6FA-8AE7616D1F0D}"
 	ProjectSection(SolutionItems) = preProject
 		secrets\azure-appconfig = secrets\azure-appconfig
+		secrets\postgres-password = secrets\postgres-password
+		secrets\postgres-user = secrets\postgres-user
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9BE705C9-C7C7-421E-960F-E246F45AEF14}"
