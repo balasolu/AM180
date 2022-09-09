@@ -55,7 +55,7 @@ else
     {
         forecasts = null;
         loadedFrom = null;
-        string recordKey = string.Join("weatherforecast_", DateTime.UtcNow.ToString("yyyyMMdd_hhmm"));
+        string recordKey = string.Join($"{nameof(WeatherForecast)}_", DateTime.UtcNow.ToString("yyyyMMdd_hhmm"));
         forecasts = await _cache.GetRecordAsync<WeatherForecast[]>(recordKey);
         if (forecasts == null)
         {

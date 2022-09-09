@@ -41,7 +41,6 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
     .AddEnvironmentVariables()
     .Build();
-Log.Information("azure options");
 
 var azureOptions = new AzureOptionsFactory().BuildOptions(configuration) as AzureOptions;
 if (azureOptions == null)
@@ -56,9 +55,8 @@ var options = new WebApplicationOptions()
     Args = args,
     WebRootPath = "wwwroot"
 };
-Log.Information("create builder");
+
 var builder = WebApplication.CreateBuilder(options);
-Log.Information("builder created");
 builder.Host
     .UseSerilog();
 
@@ -85,7 +83,7 @@ builder.WebHost
         x.AddStackExchangeRedisCache(x =>
         {
             x.Configuration = "redis";
-            x.InstanceName = "am180_";
+            x.InstanceName = $"{executingAssemblyName}_";
         });
         x.AddSignalR().AddStackExchangeRedis("redis");
         x.AddControllers();
