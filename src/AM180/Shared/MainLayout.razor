@@ -5,7 +5,16 @@
         <Header />
     </div>
     <div class="d-flex justify-content-center mt-5 pt-5 mb-5 pb-2">
-        @Body
+        <AuthorizeView>
+            <Authorized>
+                <NavItem Title="account" Href="/account/manage" Icon="aperture" />
+                @Body
+            </Authorized>
+            <NotAuthorized>
+                <NavItem Title="register" Href="/register" Icon="flag" />
+                <NavItem Title="login" Href="/login" Icon="account-login" />
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
     <div class="d-flex justify-content-center">
         @*<Contact />*@
