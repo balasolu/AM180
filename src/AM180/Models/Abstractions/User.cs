@@ -12,5 +12,6 @@ public abstract class User : IdentityUser, IEntity<string>, IUser
 
     public long? CreatedAt { get; set; }
     public UserType UserType { get; set; }
+    public virtual ICollection<Token>? Tokens { get; set; }
 }
 

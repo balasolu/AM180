@@ -1,50 +1,53 @@
 ﻿@page "/fetchdata"
-@inject IDistributedCache _cache;
 
 <PageTitle>Weather forecast</PageTitle>
 
 @using AM180.Data
 @inject WeatherForecastService ForecastService
+@inject IDistributedCache _cache;
 
-<h1>Weather forecast</h1>
+<div class="d-flex flex-column">
 
-<p>This component demonstrates fetching data from a service.</p>
+    <h1>Weather forecast</h1>
 
-<button class="btn btn-primary" @onclick="async () => await OnForecastClickedAsync()">Load Forecast</button>
+    <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null && loadedFrom == null)
-{
-    <p><em>Click the button to load a forecast</em></p>
-}
-else if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="h3 @cacheDataCss">@loadedFrom</div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
+    <button class="btn btn-primary" @onclick="async () => await OnForecastClickedAsync()">Load Forecast</button>
+
+    @if (forecasts == null && loadedFrom == null)
+    {
+        <p><em>Click the button to load a forecast</em></p>
+    }
+    else if (forecasts == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="h3 @cacheDataCss">@loadedFrom</div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var forecast in forecasts)
+                {
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
     private WeatherForecast[]? forecasts;

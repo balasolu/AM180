@@ -2,8 +2,16 @@
 using AM180.Data;
 using AM180.Extensions;
 using AM180.Factories;
+using AM180.Handlers;
 using AM180.Models.Abstractions;
 using AM180.Models.AppConfigurationOptions;
+using AM180.Providers;
+using AM180.Services.Interfaces;
+using AM180.Services;
+using Microsoft.AspNetCore.Builder.Extensions;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.Circuits;
+using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
@@ -90,14 +98,19 @@ builder.WebHost
         x.AddRazorPages();
         x.AddServerSideBlazor();
         x.AddSingleton<WeatherForecastService>();
+        x.AddScoped<IAuthService, AuthService>();
+        x.AddScoped<ILocalStorageService, LocalStorageService>();
+        x.AddScoped<AuthenticationStateProvider, DefaultRevalidatingServerAuthenticationStateProvider>();
+        x.AddScoped<IHostEnvironmentAuthenticationStateProvider>(x =>
+        {
+            // this is safe because
+            //     the `RevalidatingServerAuthenticationStateProvider` extends the `ServerAuthenticationStateProvider`
+            var provider = (ServerAuthenticationStateProvider)x.GetRequiredService<AuthenticationStateProvider>();
+            return provider;
+        });
+        x.AddScoped<CircuitHandler, DefaultCircuitHandler>();
     })
     .UseStaticWebAssets();
-
-
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 try
 {
