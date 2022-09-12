@@ -6,18 +6,15 @@
 @inject IAuthService _authService;
 @inject IDbContextFactory<DefaultDbContext> _defaultDbContextFactory;
 
-<div class="container-fluid my-1" style="width: 22.5rem;">
+<div class="container-fluid m-1" style="width: 22.5rem;">
     <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center mt-1">
+        <div class="d-flex justify-content-center m-1">
             <h1 class="text-center">Register</h1>
         </div>
-        <div class="d-flex justify-content-center my-1">
+        <div class="d-flex justify-content-center m-1">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-center">
                     @model.Feedback
-                </div>
-                <div class="d-flex justify-content-center">
-                    <UsernameInput Validate=true @bind-Username="model.Username" @bind-InputValid="model.UsernameValid" />
                 </div>
                 <div class="d-flex justify-content-center">
                     <EmailInput Validate=true @bind-Email="model.Email" @bind-InputValid="model.EmailValid" />
@@ -37,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mb-1">
+        <div class="d-flex justify-content-center m-1">
             <a class="btn btn-secondary m-1" href="/login">Have account?</a>
             <a class="btn btn-secondary m-1" href="/reset">Can't log in?</a>
         </div>

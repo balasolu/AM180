@@ -2,17 +2,17 @@
 @inject IHostEnvironmentAuthenticationStateProvider _hostEnvironmentAuthenticationStateProvider;
 @inject IAuthService _authService;
 
-<div class="container-fluid my-1" style="width: 22.5rem;">
+<div class="container-fluid m-1" style="width: 22.5rem;">
     <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center mt-1">
+        <div class="d-flex justify-content-center m-1">
             <h1 class="text-center">Reset</h1>
         </div>
-        <div class="d-flex justify-content-center my-1">
+        <div class="d-flex justify-content-center m-1">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-center">
                     <EmailInput @bind-Email="model.Email" />
                 </div>
-                <div class="d-flex justify-content-center my-1">
+                <div class="d-flex justify-content-center m-1">
                 </div>
                 <div class="d-flex justify-content-center">
                     @if (model.IsBusy)

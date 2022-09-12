@@ -65,7 +65,7 @@ var options = new WebApplicationOptions()
 };
 
 var builder = WebApplication.CreateBuilder(options);
-builder.Host
+builder.Host 
     .UseSerilog();
 
 builder.WebHost
