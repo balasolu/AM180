@@ -75,12 +75,13 @@ namespace AM180.Migrations
                     b.Property<int>("TokenType")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserForeignKey")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserForeignKey");
 
                     b.ToTable("Tokens", (string)null);
 
@@ -338,7 +339,9 @@ namespace AM180.Migrations
                 {
                     b.HasOne("AM180.Models.Abstractions.User", null)
                         .WithMany("Tokens")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

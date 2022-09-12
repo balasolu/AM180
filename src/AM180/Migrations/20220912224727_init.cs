@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -37,19 +38,6 @@ namespace AM180.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tokens",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    TokenType = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tokens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,6 +84,28 @@ namespace AM180.Migrations
                         name: "FK_RoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tokens",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    TokenType = table.Column<int>(type: "integer", nullable: false),
+                    Expiration = table.Column<long>(type: "bigint", nullable: true),
+                    Hash = table.Column<string>(type: "text", nullable: true),
+                    UserForeignKey = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tokens_Users_UserForeignKey",
+                        column: x => x.UserForeignKey,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -195,6 +205,11 @@ namespace AM180.Migrations
                 table: "Roles",
                 column: "NormalizedName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tokens_UserForeignKey",
+                table: "Tokens",
+                column: "UserForeignKey");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",

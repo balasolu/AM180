@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AM180.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20220909001725_init")]
+    [Migration("20220912224727_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,10 +68,22 @@ namespace AM180.Migrations
                     b.Property<long?>("CreatedAt")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("Expiration")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Hash")
+                        .HasColumnType("text");
+
                     b.Property<int>("TokenType")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserForeignKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserForeignKey");
 
                     b.ToTable("Tokens", (string)null);
 
@@ -325,6 +337,15 @@ namespace AM180.Migrations
                     b.HasDiscriminator().HasValue(0);
                 });
 
+            modelBuilder.Entity("AM180.Models.Abstractions.Token", b =>
+                {
+                    b.HasOne("AM180.Models.Abstractions.User", null)
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("AM180.Models.Abstractions.Role", null)
@@ -374,6 +395,11 @@ namespace AM180.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AM180.Models.Abstractions.User", b =>
+                {
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }

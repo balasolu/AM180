@@ -88,12 +88,13 @@ builder.WebHost
         .AddEntityFrameworkStores<DefaultDbContext>()
         .AddDefaultTokenProviders();
         // redis connection string is 'redis' for docker compose
+        var redisConnectionString = "redis";
         x.AddStackExchangeRedisCache(x =>
         {
-            x.Configuration = "redis";
+            x.Configuration = redisConnectionString;
             x.InstanceName = $"{executingAssemblyName}_";
         });
-        x.AddSignalR().AddStackExchangeRedis("redis");
+        x.AddSignalR().AddStackExchangeRedis(redisConnectionString);
         x.AddControllers();
         x.AddRazorPages();
         x.AddServerSideBlazor();
@@ -134,7 +135,6 @@ try
     });
 
     app.UseStaticFiles();
-
     app.UseRouting();
     app.UseAuthentication();
     app.UseAuthorization();

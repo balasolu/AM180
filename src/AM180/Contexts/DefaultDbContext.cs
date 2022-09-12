@@ -64,8 +64,15 @@ public class DefaultDbContext : IdentityDbContext<User, Role, string>, IDataProt
             .ToTable("Users")
             .HasDiscriminator<UserType>(nameof(UserType))
             .HasValue<DefaultUser>(UserType.Default)
-            //.HasValue<EntertainerUser>(UserType.Vendor)
+            //.HasValue<EntertainerUser>(UserType.Entertainer)
             .IsComplete();
 
+        modelBuilder.Entity<User>()
+            .HasMany(x => x.Tokens)
+            .WithOne()
+            .HasForeignKey(x => x.UserForeignKey)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
+ 
