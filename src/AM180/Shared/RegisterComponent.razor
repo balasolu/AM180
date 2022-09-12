@@ -1,10 +1,12 @@
-﻿@inject SignInManager<User> _signInManager;
+﻿@using System.Text
+@inject SignInManager<User> _signInManager;
 @inject UserManager<User> _userManager;
 @inject IUserStore<User> _userStore;
 @inject NavigationManager _navigationManager;
 @inject IHostEnvironmentAuthenticationStateProvider _hostEnvironmentAuthenticationStateProvider;
 @inject IAuthService _authService;
 @inject IDbContextFactory<DefaultDbContext> _defaultDbContextFactory;
+@inject IPasswordHasher<User> _passwordHasher;
 
 <div class="container-fluid m-1" style="width: 22.5rem;">
     <div class="d-flex flex-column">
@@ -48,23 +50,16 @@
     {
         public bool Initialized { get; set; }
         public bool PasswordVisible { get; set; }
-        public bool UsernameValid { get; set; }
         public bool EmailValid { get; set; }
         public bool PasswordValid { get; set; }
         public string? Feedback { get; set; }
         public bool IsBusy { get; set; }
-
-        string? username;
-        public string? Username { get => username ??= string.Empty; set => username = value; }
 
         string? email;
         public string? Email { get => email ??= string.Empty; set => email = value; }
 
         string? password;
         public string? Password { get => password ??= string.Empty; set => password = value; }
-
-        string? passwordConfirm;
-        public string? PasswordConfirm { get => passwordConfirm ??= string.Empty; set => passwordConfirm = value; }
     }
 
     protected override void OnInitialized()
@@ -75,10 +70,50 @@
     async Task OnClickedAsync()
     {
         model.IsBusy = true;
-        await Task.Delay(1500);
-        if (model.UsernameValid && model.EmailValid && model.PasswordValid)
+        try
         {
+            if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+            {
+                if (model.EmailValid && model.PasswordValid)
+                {
+                    using var context = await _defaultDbContextFactory.CreateDbContextAsync();
+                    if (context.Users != null)
+                    {
+                        var id = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Email));
+                        var exists = await context.Users.AnyAsync(x => x.Id == id);
+                        if (!exists)
+                        {
+                            var user = new DefaultUser()
+                                {
+                                    Id = id,
+                                    CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                                    Email = model.Email,
+                                    UserName = model.Email
+                                };
+                            var result = await _userManager.CreateAsync(user, model.Password);
+                            if (result.Succeeded)
+                            {
+                                _hostEnvironmentAuthenticationStateProvider.SetAuthenticationState(_authService.BuildAuthenticationStateAsync(model.Email ?? string.Empty));
+                                _navigationManager.NavigateTo("/account/manage");
+                                //await _emailService.SendEmailAsync(model.Email!, $"{user.UserName} account  confirmation", AuthService.GenerateConfirmationToken(user).Hash);
+                            }
+                            else
+                            {
+                                var error = result.Errors.FirstOrDefault();
+                                model.Feedback = error != null ? error.Description : string.Empty;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        model.IsBusy = false;
+        catch (Exception e)
+        {
+            model.Feedback = e.Message;
+        }
+        finally
+        {
+            model.IsBusy = false;
+        }
     }
 }

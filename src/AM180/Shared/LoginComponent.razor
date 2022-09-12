@@ -72,7 +72,7 @@
             if (await _authService.PasswordAuthenticateAsync(model.Email ?? string.Empty, model.Password ?? string.Empty))
             {
                 _hostEnvironmentAuthenticationStateProvider.SetAuthenticationState(_authService.BuildAuthenticationStateAsync(model.Email ?? string.Empty));
-                _navigationManager.NavigateTo("/");
+                _navigationManager.NavigateTo("/account/manage");
             }
         }
         model.IsBusy = false;
