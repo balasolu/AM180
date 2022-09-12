@@ -21,7 +21,7 @@ public sealed class DefaultRevalidatingServerAuthenticationStateProvider : Reval
     }
 
     protected override TimeSpan RevalidationInterval =>
-        TimeSpan.FromSeconds(5);
+        TimeSpan.FromMinutes(1);
 
     public async override Task<AuthenticationState> GetAuthenticationStateAsync() =>
         await base.GetAuthenticationStateAsync();
