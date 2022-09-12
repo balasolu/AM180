@@ -5,9 +5,12 @@
     <div class="d-flex justify-content-center m-1">
         <input type="email" class="@InputClass" placeholder="Email" @oninput="async args => { await OnEmailChangedAsync(args); }" />
     </div>
-    <div class="d-flex justify-content-center m-1 @FeedbackClass">
-        @FeedbackContent
-    </div>
+    @if (Validate)
+    {
+        <div class="d-flex justify-content-center m-1 @FeedbackClass">
+            @FeedbackContent
+        </div>
+    }
 </div>
 
 @code{
