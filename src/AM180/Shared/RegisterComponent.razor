@@ -6,12 +6,12 @@
 @inject IAuthService _authService;
 @inject IDbContextFactory<DefaultDbContext> _defaultDbContextFactory;
 
-<div class="container my-1 py-1">
+<div class="container-fluid my-1" style="width: 22.5rem;">
     <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center mt-1 pt-1">
-            <h1 class="text-center">register</h1>
+        <div class="d-flex justify-content-center mt-1">
+            <h1 class="text-center">Register</h1>
         </div>
-        <div class="d-flex justify-content-center my-1 py-1">
+        <div class="d-flex justify-content-center my-1">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-center">
                     @model.Feedback
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mb-1 pb-1">
+        <div class="d-flex justify-content-center mb-1">
             <a class="btn btn-secondary m-1" href="/login">Have account?</a>
             <a class="btn btn-secondary m-1" href="/reset">Can't log in?</a>
         </div>
