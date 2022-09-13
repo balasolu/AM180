@@ -73,7 +73,7 @@ public interface IAuthService
     Task<bool> TokenAuthenticateAsync(User user);
 
     /// <summary>
-    /// 
+    /// checks to see if a given token expires soon
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
