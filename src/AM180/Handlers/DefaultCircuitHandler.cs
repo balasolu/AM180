@@ -1,6 +1,9 @@
-﻿using AM180.Services.Interfaces;
+﻿using AM180.Models.Abstractions;
+using AM180.Providers;
+using AM180.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.Circuits;
+using Microsoft.AspNetCore.Identity;
 using Serilog;
 
 namespace AM180.Handlers;
@@ -10,15 +13,18 @@ sealed class DefaultCircuitHandler : CircuitHandler
     readonly IAuthService _authService;
     readonly ILocalStorageService _localStorageService;
     readonly IHostEnvironmentAuthenticationStateProvider _hostEnvironmentAuthenticationStateProvider;
+    readonly AuthenticationStateProvider _authenticationStateProvider;
 
     public DefaultCircuitHandler(
         IAuthService authService,
         ILocalStorageService localStorageService,
-        IHostEnvironmentAuthenticationStateProvider hostEnvironmentAuthenticationStateProvider)
+        IHostEnvironmentAuthenticationStateProvider hostEnvironmentAuthenticationStateProvider,
+        AuthenticationStateProvider authenticationStateProvider)
     {
         _authService = authService;
         _localStorageService = localStorageService;
         _hostEnvironmentAuthenticationStateProvider = hostEnvironmentAuthenticationStateProvider;
+        _authenticationStateProvider = authenticationStateProvider;
     }
 
     public override async Task OnCircuitClosedAsync(Circuit circuit, CancellationToken cancellationToken)
@@ -44,8 +50,7 @@ sealed class DefaultCircuitHandler : CircuitHandler
             var user = await _localStorageService.GetDefaultUserAsync();
             if (user != null)
             {
-                if (await _authService.TokenAuthenticateAsync(user))
-                    _hostEnvironmentAuthenticationStateProvider.SetAuthenticationState(_authService.BuildAuthenticationStateAsync(user));
+                _hostEnvironmentAuthenticationStateProvider.SetAuthenticationState(_authService.BuildAuthenticationStateAsync(user));
             }
         }
         catch (Exception e)

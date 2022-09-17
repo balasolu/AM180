@@ -101,7 +101,7 @@ builder.WebHost
         x.AddSingleton<WeatherForecastService>();
         x.AddScoped<IAuthService, AuthService>();
         x.AddScoped<ILocalStorageService, LocalStorageService>();
-        x.AddScoped<AuthenticationStateProvider, DefaultRevalidatingServerAuthenticationStateProvider>();
+        x.AddScoped<AuthenticationStateProvider, DefaultRevalidatingServerAuthenticationStateProvider<User>>();
         x.AddScoped<IHostEnvironmentAuthenticationStateProvider>(x =>
         {
             // this is safe because

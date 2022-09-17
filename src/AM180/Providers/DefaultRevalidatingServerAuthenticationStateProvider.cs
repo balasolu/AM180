@@ -1,43 +1,71 @@
-﻿using AM180.Services.Interfaces;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
-using Serilog;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace AM180.Providers;
 
-public sealed class DefaultRevalidatingServerAuthenticationStateProvider : RevalidatingServerAuthenticationStateProvider
+public sealed class DefaultRevalidatingServerAuthenticationStateProvider<TUser> : RevalidatingServerAuthenticationStateProvider
+    where TUser : IdentityUser
 {
-    readonly IAuthService _authService;
-    readonly ILocalStorageService _localStorageService;
+    readonly IServiceScopeFactory _scopeFactory;
+    readonly IdentityOptions _options;
 
     public DefaultRevalidatingServerAuthenticationStateProvider(
-        IAuthService authService,
-        ILocalStorageService localStorageService,
-        ILoggerFactory loggerFactory)
-            : base(loggerFactory)
+        ILoggerFactory loggerFactory,
+        IServiceScopeFactory scopeFactory,
+        IOptions<IdentityOptions> optionsAccessor)
+        : base(loggerFactory)
     {
-        _authService = authService;
-        _localStorageService = localStorageService;
+        _scopeFactory = scopeFactory;
+        _options = optionsAccessor.Value;
     }
 
-    protected override TimeSpan RevalidationInterval =>
-        TimeSpan.FromMinutes(1);
+    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
 
     public async override Task<AuthenticationState> GetAuthenticationStateAsync() =>
         await base.GetAuthenticationStateAsync();
 
     protected override async Task<bool> ValidateAuthenticationStateAsync(
-        AuthenticationState authenticationState,
-        CancellationToken cancellationToken)
+        AuthenticationState authenticationState, CancellationToken cancellationToken)
     {
+        // Get the user manager from a new scope to ensure it fetches fresh data
+        var scope = _scopeFactory.CreateScope();
         try
         {
-            return await _authService.TokenAuthenticateAsync(await _localStorageService.GetDefaultUserAsync());
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TUser>>();
+            return await ValidateSecurityStampAsync(userManager, authenticationState.User);
         }
-        catch (Exception e)
+        finally
         {
-            Log.Warning(e.Message, e);
+            if (scope is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+            }
+            else
+            {
+                scope.Dispose();
+            }
+        }
+    }
+
+    async Task<bool> ValidateSecurityStampAsync(UserManager<TUser> userManager, ClaimsPrincipal principal)
+    {
+        var user = await userManager.GetUserAsync(principal);
+        if (user == null)
+        {
             return false;
+        }
+        else if (!userManager.SupportsUserSecurityStamp)
+        {
+            return true;
+        }
+        else
+        {
+            var principalStamp = principal.FindFirstValue(_options.ClaimsIdentity.SecurityStampClaimType);
+            var userStamp = await userManager.GetSecurityStampAsync(user);
+            return principalStamp == userStamp;
         }
     }
 }
