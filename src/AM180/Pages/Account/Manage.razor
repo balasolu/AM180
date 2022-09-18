@@ -1,7 +1,29 @@
 ﻿@page "/account/manage"
+@inject AuthenticationStateProvider _authenticationStateProvider;
 
 <h3>Manage</h3>
+<AuthorizeView>
+    @model.Name
+</AuthorizeView>
 
 @code {
+    Model model = new();
 
+    class Model
+    {
+        public string? Name { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (_authenticationStateProvider != null)
+        {
+            var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            if (authenticationState.User.Identity != null)
+            {
+                model.Name = authenticationState.User.Identity.Name;
+            }
+        }
+    }
 }

@@ -1,9 +1,6 @@
-﻿using AM180.Models.Abstractions;
-using AM180.Providers;
-using AM180.Services.Interfaces;
+﻿using AM180.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.Circuits;
-using Microsoft.AspNetCore.Identity;
 using Serilog;
 
 namespace AM180.Handlers;
